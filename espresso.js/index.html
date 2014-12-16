@@ -483,7 +483,7 @@
 <h3><a name="getting-started" class="anchor" href="#getting-started">Getting Started</a><span class="ac">¶</span></h3><p>If you&#39;re using Browserify or Node/CommonJS, simply install the package:</p>
 <p><code>$ sudo npm install --save espresso.js</code></p>
 <p>Alternatively grab the <a href="https://raw.githubusercontent.com/techlayer/espresso.js/master/espresso.min.js?token=AAamF6ZPKrH6WZ5pN6wwM4QtQphAdmbLks5Ua2ecwA%3D%3D">standalone version</a> that you can import with a <code>&lt;script&gt;</code> tag or checkout the <a href="https://github.com/techlayer/espresso.js">GitHub Repo</a>.</p>
-<p>Now dive in and check out the <a href="https://github.com/techlayer/espresso.js/tree/master/examples/todomvc">To-Do Example</a> app.</p>
+<p>Now dive in and check out the <a href="https://rawgit.com/techlayer/espresso.js/master/examples/todomvc/index.html">To-Do Example app in action</a> or read the <a href="https://github.com/techlayer/espresso.js/tree/master/examples/todomvc">source code</a>.</p>
 <h2><a name="views" class="anchor" href="#views">Views</a><span class="ac">¶</span></h2><p>A view is a DOM Node.  For example:</p>
 <pre><code>&lt;div class=&quot;commentBox&quot;&gt;
   &lt;h1&gt;Comments&lt;/h1&gt;
@@ -547,8 +547,8 @@ The callback function is automatically bound to the controller for you, so <code
 <h3><a name="models/constructor" class="anchor" href="#models/constructor">constructor </a><code>new Model({ key: val })</code><span class="ac">¶</span></h3><p>Creates a new model with specified attributes</p>
 <h3><a name="models/defaults" class="anchor" href="#models/defaults">defaults</a><span class="ac">¶</span></h3><p>This property is used to set the default properties of the model, which are used when <code>get</code> is called.</p>
 <h3><a name="models/set" class="anchor" href="#models/set">set </a><code>set({ key: val }); set(key, val)</code><span class="ac">¶</span></h3><p>Sets new values on the model and fires a <code>change</code> event if necessary.  Since changing the model will cause the controller to re-render, you should aim to set all required properties in one <code>set()</code> call.</p>
-<h3><a name="models/get" class="anchor" href="#models/get">get </a><code>get(attr)</code><span class="ac">¶</span></h3><p><code>attr</code> can be a function name or attribute name</p>
-<h3><a name="models/toobject" class="anchor" href="#models/toobject">toObject</a><span class="ac">¶</span></h3><p>returns the model attributes as a pure object.</p>
+<h3><a name="models/get" class="anchor" href="#models/get">get </a><code>get(attr)</code><span class="ac">¶</span></h3><p>Returns the value of the objects <code>attr</code> attribute or its default</p>
+<h3><a name="models/toobject" class="anchor" href="#models/toobject">toObject</a><span class="ac">¶</span></h3><p>Returns the model attributes as a pure Object.</p>
 <h2><a name="collections" class="anchor" href="#collections">Collections</a><span class="ac">¶</span></h2><p>Collections are thin wrappers over native arrays and fire a <code>change</code> method when they have been modified.  The <code>change</code> method specifies the <code>index</code> and which elements have been added, removed and updated.</p>
 <pre><code>this.listenTo(collection, function(e) {
   console.log(e.index, e.added, e.removed, e.updated)
