@@ -524,18 +524,19 @@ The callback function is automatically bound to the controller for you, so <code
 <p>You should not need to call <code>setView</code> manually.</p>
 <h3><a name="controllers/set" class="anchor" href="#controllers/set">set </a><code>set({ key: val })</code><span class="ac">¶</span></h3><p>Shortcut for <code>this.model.set</code></p>
 <h3><a name="controllers/render" class="anchor" href="#controllers/render">render</a><span class="ac">¶</span></h3><p>You should over-ride render with your own implementation that updates <code>this.view</code> node.  You can do this imperatively as in Backbone, or declaratively as follows:</p>
-<pre><code>render: function() {
+<pre><code>render: function(model) {
   return {
-    list: this.list.set(items),
-    view: { classList: { editing: this.model.editing, completed: this.model.done } },
+    list: { include: this.list.set(items) },
+    view: { classList: { editing: model.editing, completed: model.done } },
     label: { onclick: this.edit, text: &#39;click here&#39;, display: true },
-    input: { value: this.model.text, onkeydown: this.key },
+    input: { value: model.text, onkeydown: this.key },
     toggle: { onclick: this.toggle, checked: this.model.done }
     count: { html: &#39;&lt;strong&gt;&#39;+store.active().length+&#39;&lt;/strong&gt; items left&#39; },
   }
 }
-</code></pre><p>If your render function returns an <code>Object</code>, Espresso assumes that the object represents current state of <code>this.view</code> and peforms the required updates to the DOM after diff-ing against previous DOM object returned by <code>render</code>.  The declarative form specifies the name of the node on the left (as per the <code>data-ref</code> property) and attributes of that node on the right.  If the name maps to a controller instance, the controller is added as a <strong>child</strong> with that node as its <code>view</code>.  Apart from HTML attributes, some attributes offer special features:</p>
+</code></pre><p>If your render function returns an <code>Object</code>, Espresso assumes that the object represents current state of <code>this.view</code> and peforms the required updates to the DOM after diff-ing against previous DOM object returned by <code>render</code>.  The declarative form specifies the name of the node on the left (as per the <code>data-ref</code> property) and attributes of that node on the right.  Apart from HTML attributes, some attributes offer special features:</p>
 <ul>
+<li><code>include</code> - include a child Controller instance with that node as its <code>view</code></li>
 <li><code>on[event]</code> - binds an event handler to that node</li>
 <li><code>classList: { className: true|false }</code> - specifies which <em>classes</em> the node should have</li>
 <li><code>display: true|false</code> - whether to display the node</li>
@@ -587,7 +588,7 @@ new List(function(model) { new ToDoItem({ model: model }) })
 },
 render: function() {
   return {
-    todos: this.list.set(this.todos)
+    todos: { include: this.list.set(this.todos) }
   }
 }
 </code></pre><h3><a name="lists/reset" class="anchor" href="#lists/reset">reset </a><code>reset([...])</code><span class="ac">¶</span></h3><p>Delegates to <code>Collection.reset</code></p>
